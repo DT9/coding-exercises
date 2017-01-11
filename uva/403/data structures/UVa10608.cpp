@@ -1,3 +1,27 @@
+/* UVa problem: 10608
+ *
+ * Topic: data structures
+ *
+ * Level: trivial
+ * 
+ * Brief problem description: 
+ *
+ *   ...
+ *
+ * Solution Summary:
+ *
+ *   
+ *
+ * Used Resources:
+ *
+ *   
+ *
+ * I hereby certify that I have produced the following solution myself 
+ * using the resources listed above in accordance with the CMPUT 403 
+ * collaboration policy.
+ *
+ * --- Dennis Truong
+ */
 #include <iostream>
 #include <algorithm>
 #include <map>
