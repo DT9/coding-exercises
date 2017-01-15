@@ -25,27 +25,31 @@
  #include <iostream>
  #include <tuple>
  #include <vector>
+ #define t3i tuple<int,int,int>
  using namespace std;
  int main() {
      int N;
      cin >> N;
-     for (int tc = 0; tc < N; tc++){
-         vector<tuple<int,int,int>> v;
+     while (N--) {
+         vector<t3i> v;
          int jobs;
          cin >> jobs;
-         for (int j= 0; j<jobs; j++){
+         for (int j= 1; j<=jobs; j++){
              int t,s;
              cin >> t >> s;
              v.push_back(make_tuple(j,t,s));
          }
-         sort(begin(v),end(v),
-            [](const tuple<int,int,int> a, const tuple<int,int,int> b) -> bool {
-             return std::get<1>(a) > std::get<1>(b);
+         stable_sort(begin(v),end(v),
+            [](const t3i a, const t3i b) -> bool {
+             return get<1>(a) * get<2>(b) < get<1>(b) * get<2>(a);
          });
-         for (auto i:v) {
-             cout << std::get<0>(i) << " ";
+
+         cout << get<0>(v[0]);
+         for (unsigned long i = 1; i < v.size(); i++) {
+             cout << " " << get<0>(v[i]);
          }
          cout << endl;
+         if (N) cout << endl;
      }
      return 0;
  }

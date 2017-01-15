@@ -1,5 +1,5 @@
-CC = gcc
-CFLAGS = -Wall -Wextra -lm -lcrypto -O2 -std=c++11 -pipe -DONLINE_JUDGE
+CC = g++
+CFLAGS = -Wall -Wextra -O2 -std=c++11 -pipe -DONLINE_JUDGE -stdlib=libc++
 OBJECTS = *.o
 
 all: main
