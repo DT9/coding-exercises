@@ -22,3 +22,7 @@
  *
  * --- Dennis Truong
  */
+ int main() {
+     
+     return 0;
+ }
