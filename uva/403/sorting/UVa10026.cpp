@@ -25,6 +25,7 @@
  #include <iostream>
  #include <tuple>
  #include <vector>
+ #include <algorithm>
  #define t3i tuple<int,int,int>
  using namespace std;
  int main() {
