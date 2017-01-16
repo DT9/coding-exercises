@@ -1,3 +1,4 @@
+#usage: ./uva.sh [uva problem no.]
 num=$1
 in=UVa${num}.cpp 
 out=${num}.out

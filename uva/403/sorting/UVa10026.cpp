@@ -10,11 +10,11 @@
  *
  * Solution Summary:
  *
- *   
- *
+ *   greedily sort the array and compare the fine * days
+ *   for the sort's predicate
  * Used Resources:
  *
- *   cppref
+ *   cp3,cppref
  *
  * I hereby certify that I have produced the following solution myself 
  * using the resources listed above in accordance with the CMPUT 403 

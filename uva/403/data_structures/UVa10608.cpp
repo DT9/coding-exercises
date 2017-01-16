@@ -64,6 +64,7 @@ class UnionFind {
         return size[y] += size[x];        
       }
     }
+    return -1;
   }
 
 };
