@@ -22,3 +22,21 @@
  *
  * --- Dennis Truong
  */
+ #include <iostream>
+ #include <vector>
+ #include <algorithm>
+ using namespace std;
+ int main() {
+     int N;
+     while (cin >> N) {
+         vector<int> v;
+         while(N--){
+             int i; 
+             cin >> i;
+             v.push_back(i);
+         }
+         int M;
+         
+     }
+     return 0;
+ }
