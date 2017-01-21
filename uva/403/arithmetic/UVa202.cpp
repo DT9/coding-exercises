@@ -10,7 +10,10 @@
  *
  * Solution Summary:
  *
- *   
+ *   using floyd's cycle finding algorithm, and f as a function of
+ *   long division generation, I was able to find out the starting
+ *   point and length of the repeating decimals, and then outputing
+ *   the answer from the cached decimals.
  *
  * Used Resources:
  *
