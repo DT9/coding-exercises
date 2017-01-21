@@ -26,7 +26,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-
+#include <cassert>
 using namespace std;
 
 typedef pair<int, int> ss;
@@ -64,16 +64,19 @@ ss floydCycleFinding(int x0) {  // function int f(int x) is defined earlier
         divisor = b;
         ss result = floydCycleFinding(a%b*10);
         int first = result.first, last = result.second, 
-            digits = abs(first - last);
+            digits = last;
         string str(out.begin(),out.end()),
         nonrepeat = str.substr(0,first), 
         repeat;
         if (digits > 50) {
-            repeat = str.substr(first,first+50) + "...";
+            repeat = str.substr(first,50) + "...";
+            assert(repeat.size() == 53);
         }
         else {
-            repeat = str.substr(first,last);
+            repeat = str.substr(first,digits);
         }
+        // cout << str << endl;
+        // cout << first << " " << last << endl;
         cout << a << "/" << b << " = " << a / b << '.' << nonrepeat << "(" << repeat << ")" << endl;
         cout << "   " << digits << " = number of digits in repeating cycle" << endl << endl;
         out.clear();
