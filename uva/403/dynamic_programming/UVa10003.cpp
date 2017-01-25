@@ -54,7 +54,7 @@ int cut(int left, int right) {
  		}
  		v.push_back(l);
  		memset(memo,-1,sizeof(memo));
-		cout << "The minimum cutting is " << cut(0,n+1) << endl; 	
+		cout << "The minimum cutting is " << cut(0,n+1) << "." << endl; 	
 		v.clear();	
  	}
  	return 0;
