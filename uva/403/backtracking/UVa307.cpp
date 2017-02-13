@@ -1,8 +1,8 @@
-/* UVa problem: 
+/* UVa problem: sticks 307
  *
- * Topic: 
+ * Topic: backtracking
  *
- * Level: 
+ * Level: mandatory, nontrivial
  * 
  * Brief problem description: 
  *
