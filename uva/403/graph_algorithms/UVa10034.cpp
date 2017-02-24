@@ -28,6 +28,7 @@
 #include <cstring>
 #include <iostream>
 #include <algorithm>
+#include <iomanip>
 using namespace std;
 
 #define MAXN   1000
@@ -99,18 +100,15 @@ int main(){
   int i,tc;
   double weight;
   cin >> tc;
-  while (tc--) {
-    while(scanf("%d", &n) == 1){
-      numedge = n;
-      memset(sets, -1, sizeof(sets));
-      for(i = 0; i < numedge; i++){
-        scanf("%lf %lf", &edge[i].u, &edge[i].v);
-      }
-      weight = mintree();
-      printf("%.2f\n", weight);
+  while(scanf("%d", &n) == 1){
+    numedge = n;
+    memset(sets, -1, sizeof(sets));
+    for(i = 0; i < numedge; i++){
+      scanf("%lf %lf", &edge[i].u, &edge[i].v);
     }
+    weight = mintree();
+    cout << setprecision(2) << std::fixed << weight << endl;
+    if (--tc) cout << endl;
   }
-  
-
   return 0;
 }
