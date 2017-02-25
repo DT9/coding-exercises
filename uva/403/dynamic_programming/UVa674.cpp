@@ -28,14 +28,17 @@
 #include <algorithm>
 using namespace std;
 
-int N = 5, V, coinValue[5] = {1, 5, 10, 25, 50}, memo[6][7500];
+int N = 5, V, 
+    coinValue[5] = {1, 5, 10, 25, 50}, 
+    memo[6][7500];
 // N and coinValue are fixed for this problem, max V is 7489
 
 int coin(int type, int value) {
   if (value == 0)              return 1;
   if (value < 0 || type == N)  return 0;
-  if (memo[type][value] != -1) return memo[type][value];
-  return memo[type][value] = coin(type + 1, value) + coin(type, value - coinValue[type]);
+  int & found = memo[type][value];
+  if (found != -1) return found;
+  return found = coin(type + 1, value) + coin(type, value - coinValue[type]);
 }
 
 

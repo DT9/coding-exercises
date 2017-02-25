@@ -1,12 +1,13 @@
-/* UVa problem: 
+/* UVa problem: tower of babylon
  *
- * Topic: 
+ * Topic: graph traversal
  *
- * Level: 
+ * Level: trivial
  * 
  * Brief problem description: 
  *
- *   
+ *   build the tallest tower with blocks types, 
+ *   blocks bases must be smaller than previous
  *
  * Solution Summary:
  *

@@ -2,7 +2,7 @@
  *
  * Topic: dp
  *
- * Level: mandatory
+ * Level: mandatory, trivial
  * 
  * Brief problem description: 
  *

@@ -1,8 +1,8 @@
-/* UVa problem: 
+/* UVa problem: andy's shoes
  *
- * Topic: 
+ * Topic: combinatorics
  *
- * Level: 
+ * Level: trivial 311/381
  * 
  * Brief problem description: 
  *
@@ -22,3 +22,28 @@
  *
  * --- Dennis Truong
  */
+
+#include <iostream>
+#include <vector>
+using namespace std;
+vector<int> v;
+int tc,n,s;
+
+int swap() {
+    
+    return 0;
+}
+
+int main() {
+    cin >> tc;
+    while (tc--) {
+        cin >> n;
+        for (int i = 0; i < 2*n; i++){
+            cin >> s;
+            v.push_back(s);
+        }
+        cout << swap() << endl;
+        v.clear();
+    }
+    return 0;
+}

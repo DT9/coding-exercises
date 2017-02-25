@@ -6,15 +6,15 @@
  * 
  * Brief problem description: 
  *
- *   Find the 
+ *   Find the substring 
  *
  * Solution Summary:
  *
- *   
+ *   convert semitones and normalize them
  *
  * Used Resources:
  *
- *   
+ *   cp3
  *
  * I hereby certify that I have produced the following solution myself 
  * using the resources listed above in accordance with the CMPUT 403 
@@ -29,7 +29,7 @@
  using namespace std;
 
 int convert(string s) {
-    map<string,int> notes = { };
+    map<string,int> notes = {""};
     
     return 0;
 }
@@ -50,7 +50,7 @@ int convert(string s) {
             plag[i] = convert(T);
         }
         //suffix array
-
+        
         cin >> m >> t;
      }
 

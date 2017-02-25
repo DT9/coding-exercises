@@ -40,7 +40,7 @@ ll EulerPhi(ll N) {
     return ans;
 }
 int main() {
-    EulerPhi(NN);
+    EulerPhi(1);
     while (cin >> k,k) {
         cout << k << endl;
     }
