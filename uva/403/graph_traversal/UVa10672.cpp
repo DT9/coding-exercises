@@ -11,7 +11,7 @@
  *
  * Solution Summary:
  *
- *   
+ *   greedy sorting
  *
  * Used Resources:
  *

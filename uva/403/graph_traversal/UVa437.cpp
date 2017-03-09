@@ -11,7 +11,7 @@
  *
  * Solution Summary:
  *
- *   
+ *   Longest increasing subsequence
  *
  * Used Resources:
  *
@@ -23,3 +23,7 @@
  *
  * --- Dennis Truong
  */
+
+ int main() {
+     
+ }
