@@ -34,11 +34,6 @@ using namespace std;
 int row[8], TC, a, b, lineCounter, n, ans; 
 char board[15][15];
 bitset<30> rw, ld, rd; // for the largest n = 14, we have 27 diagonals
-bool place(int r, int c) {
-  for (int prev = 0; prev < c; prev++)    // check previously placed queens
-    if (row[prev] == r || (abs(row[prev] - r) == abs(prev - c)))
-      return false;        // share same row or same diagonal -> infeasible
-  return true; }
 
 void backtrack(int c) {
     if (c == n) { ans++; return; } // a solution 
