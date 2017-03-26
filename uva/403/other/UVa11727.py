@@ -1,20 +1,20 @@
-'''/* UVa problem: 623
+'''/* UVa problem:  11044
  *
- * Topic: arithmetic
+ * Topic:  other
  *
- * Level: nontrivial
+ * Level:  triv
  * 
  * Brief problem description: 
  *
- *   given X, output X!
+ *    
  *
  * Solution Summary:
  *
- *   python has an optimized factorial function
+ *    
  *
  * Used Resources:
  *
- *   py
+ *   cp3
  *
  * I hereby certify that I have produced the following solution myself 
  * using the resources listed above in accordance with the CMPUT 403 
@@ -22,9 +22,7 @@
  *
  * --- Dennis Truong
  */'''
-import math
-from sys import stdin
-for line in stdin:
-    n = int(line)
-    print(line.strip()+"!")
-    print(math.factorial(n))
+for i in range(int(input())):
+    a=[int(c) for c in input().split()]
+    a.sort()
+    print("Case " + str(i+1) + ": " + str(a[1]))
