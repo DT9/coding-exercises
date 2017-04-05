@@ -1,49 +1,70 @@
-/* UVa problem: airline comparison
- *
- * Topic: graph
- *
- * Level: trivial 781/962
- * 
- * Brief problem description: 
- *
- *   given 2 sequences of airlines, check if equivalent
- *
- * Solution Summary:
- *
- *   run warshall's 2x, compare adj matrices
- *
- * Used Resources:
- *
- *   cp3
- *
- * I hereby certify that I have produced the following solution myself 
- * using the resources listed above in accordance with the CMPUT 403 
- * collaboration policy.
- *
- * --- Dennis Truong
- */
 #include <iostream>
+
 using namespace std;
-int tc,n,m;
-vector<pair<char,char>> a,b;
 
-int comp() {
+const int Max = 26;
+int N,T;
 
+bool A[Max][Max];
+bool B[Max][Max];
+
+void read(bool arr[Max][Max])
+{
+    cin >> N;
+    
+    while (N--)
+    {
+        char from, to;
+        cin >> from >> to;
+        
+        arr[from - 'A'][to - 'A'] = 1;
+    }
 }
-int main() {
-    cin >> tc;
-    while (tc--) {
-        char x,y;
-        cin >> n;
-        for (int i = 0; i < n; i++){
-        cin >> x >> y; 
-        a.push_back(make_pair(x,y));;
+
+void warshallx2()
+{
+    for (int k = 0; k < Max; ++k)
+    {
+        for (int i = 0; i < Max; ++i)
+        {
+            for (int j = 0; j < Max; ++j)
+            {
+                A[i][j] |= (A[i][k] && A[k][j]);
+                B[i][j] |= (B[i][k] && B[k][j]);
+            }
         }
-        for (int i = 0; i < n; i++){
-        cin >> x >> y; 
-        b.push_back(make_pair(x,y));;
+    }
+}
+
+int main()
+{
+    
+    cin >> T;
+    
+    for (int t = 0; t < T; ++t)
+    {
+        if (t)
+            cout << endl;
+        
+        for (int i = 0; i < Max; ++i)
+        {
+            for (int j = 0; j < Max; ++j)
+            {
+                A[i][j] = B[i][j] = false;
+            }
         }
         
-
+        read(A);
+        read(B);
+        
+        warshallx2();
+        
+        bool eq = 1;
+        
+        for (int i = 0; i < Max; ++i)
+            for (int j = 0; j < Max; ++j)
+                eq &= (A[i][j] == B[i][j]);
+        
+        cout << (eq ? "YES" : "NO") << endl;
     }
 }

@@ -1,26 +1,30 @@
-/* UVa problem: marbles on a tree
+'''/* UVa problem: 623
  *
- * Topic: graph traversal
+ * Topic: arithmetic
  *
- * Level: trivial 744/803
+ * Level: nontrivial
  * 
  * Brief problem description: 
  *
- *   given a tree with boxes of marbles on some vertices
- *   solve for min moves to allocate 1 marble to ea box
+ *   given X, output X!
  *
  * Solution Summary:
  *
- *   greedy sorting
+ *   python has an optimized factorial function
  *
  * Used Resources:
  *
- *   cp3
+ *   py
  *
  * I hereby certify that I have produced the following solution myself 
  * using the resources listed above in accordance with the CMPUT 403 
  * collaboration policy.
  *
  * --- Dennis Truong
- */
- 
+ */'''
+import math
+from sys import stdin
+for line in stdin:
+    n = int(line)
+    print(line.strip()+"!")
+    print(math.factorial(n))

@@ -22,11 +22,26 @@
  *
  * --- Dennis Truong
  */'''
-for i in range(int(input())):
-    a,b = [int(j) for j in input().split()]
-    if a > b:
-        print(">")
-    elif a < b:
-        print("<")
+import sys
+c = 0
+for line in sys.stdin:
+    line = line.strip()
+    c += 1
+    ans = "Case " + str(c) + ": "
+    if (line == "#"):
+        break
+    elif line == "HELLO":
+        ans += ("ENGLISH")
+    elif line == "HOLA":
+        ans += ("SPANISH")
+    elif line == "HALLO":
+        ans += ("GERMAN")
+    elif line == "BONJOUR":
+        ans += ("FRENCH")
+    elif line == "CIAO":
+        ans += ("ITALIAN")
+    elif line == "ZDRAVSTVUJTE":
+        ans += ("RUSSIAN")
     else:
-        print("=")
+        ans += ("UNKNOWN")
+    print(ans)
