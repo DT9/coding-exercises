@@ -75,7 +75,9 @@ int reconstruct_print(int end, vector<block> a, int p[]) {
   return sum;
 }
 // 40 21 28 342
-
+bool buildable(const block& a, const block& b) {
+    return ((a.x > b.x) && (a.y > b.y)) || ((a.x > b.y) && (a.y > b.x));
+}
 #define MAX_N 100000
 #define mm 90
 typedef unsigned long ul;
@@ -93,12 +95,12 @@ int main() {
             A.push_back(block(y,z,x));
             A.push_back(block(z,x,y));
         }
-        sort(A.begin(),A.end(),compare_xy());
-        for(block i : A) {
+        sort(A.begin(),A.end());
+        for (block i : A) {
           printf("(%d %d %d)",i.x,i.y,i.z);
         } cout << endl;
         int lis = 0, lis_end = 0;
-        for (int i = 0; i < n*3; ++i) {
+        for (int i = 0; i < 3*n; ++i) {
             int pos = lower_bound(L.begin(), L.begin() + lis, A[i]) - L.begin();
             L[pos] = A[i];
             L_id[pos] = i;
@@ -108,7 +110,7 @@ int main() {
                 lis_end = i;
             }
         }
-        for(int i=0; i < n*9; i++) {
+        for(int i=0; i < n*3; i++) {
           printf("(%d)",P[i]);
         } cout << endl;
         int ans = 0;

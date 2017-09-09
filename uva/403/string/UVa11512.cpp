@@ -76,14 +76,6 @@ void constructSA() {         // this version can go up to 100000 characters
     if (RA[SA[n-1]] == n-1) break;               // nice optimization trick
 } }
 
-void computeLCP_slow() {
-  LCP[0] = 0;                                              // default value
-  for (int i = 1; i < n; i++) {                // compute LCP by definition
-    int L = 0;                                       // always reset L to 0
-    while (T[SA[i] + L] == T[SA[i-1] + L]) L++;      // same L-th char, L++
-    LCP[i] = L;
-} }
-
 void computeLCP() {
   int i, L;
   Phi[SA[0]] = -1;                                         // default value
