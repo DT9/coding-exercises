@@ -1,0 +1,5 @@
+\color[BDE8B2]<html>
+\color[12A5F2]<head>\color[02E73B]<title>Welcome to Capital One highlighter test</title>\color[12A5F2]</head>\color[BDE8B2] \color[76D88F]<body>
+\color[5B8C45]<h1>Welcome to Capital One</h1>\color[76D88F]
+\color[F54824]<p>\color[2BB84A]<a href="http://tech.capitalone.ca">Visit Our Blog</a>\color[F54824]</p>\color[76D88F] </body>\color[BDE8B2]
+</html>
