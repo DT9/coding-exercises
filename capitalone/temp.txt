@@ -1,0 +1,5 @@
+\color[FFFFFF]\color[5C34DC]\color[A56AEB]<html>
+\color[FBC94A]\color[6065D0]<head>\color[6C5229]\color[F15751]<title>Welcome to Capital One highlighter test</title>\color[6065D0]\color[FBC94A]</head>\color[A56AEB]\color[5C34DC] \color[2AB7D8]\color[79410E]<body>
+\color[148321]\color[E33172]<h1>Welcome to Capital One</h1>\color[79410E]\color[2AB7D8]
+\color[6B5175]\color[3E7C86]<p>\color[55B76C]\color[EDE9C6]<a href="http://tech.capitalone.ca">Visit Our Blog</a>\color[3E7C86]\color[6B5175]</p>\color[79410E]\color[2AB7D8] </body>\color[A56AEB]\color[5C34DC]
+</html>
