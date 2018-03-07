@@ -1,2 +1,2 @@
 # programming-problems
-kattis,uva,ctci,elements,compete etc
+Collection of solved problems from kattis, uva, ctci, elements, compete, etc...
