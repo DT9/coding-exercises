@@ -3,5 +3,7 @@
         "iostream": "cpp",
         "bitset": "cpp",
         "tuple": "cpp"
-    }
+    },
+    "java.home": "/Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home",
+    "python.pythonPath": "/usr/local/bin/python"
 }

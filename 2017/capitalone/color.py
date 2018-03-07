@@ -65,6 +65,7 @@ class ColorParser(HTMLParser):
             temp = data
         else:
             temp = self.prefix + self.colors[top] + data
+            self.group = True
         self.html.append(temp)
 
     # creates random 6 hex chars
