@@ -3,7 +3,7 @@
     "configurations": [
         {
             "type": "java",
-            "name": "Debug (Launch)",
+            "name": "Java (Launch)",
             "request": "launch",
             "cwd": "${workspaceFolder}",
             "mainClass": "temp",

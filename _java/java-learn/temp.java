@@ -1,5 +1,3 @@
-// package com.mycompany.app;
-
 interface Builder<T> {
     T build();
 }

@@ -10,9 +10,14 @@
     "isBackground": true,
     "tasks": [
         {
-            "taskName": "build",
+            "taskName": "build javac",
             "args": ["-g", "${file}"],
             "command": "javac"
-        }
+        },{
+            "taskName": "compile mvn",
+            "type": "shell",
+            "command": "mvn -B compile",
+            "group": "build"
+        },        
     ]
 }
