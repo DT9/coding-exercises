@@ -1,0 +1,346 @@
+
+services:
+  twenty-server:
+    image: twentyhq/twenty-server:${TWENTY_VERSION:-latest}
+    container_name: twenty-server
+    restart: unless-stopped
+    
+    environment:
+      # Core Configuration
+      - APP_SECRET=${APP_SECRET}
+      - SERVER_URL=${SERVER_URL}
+      - FRONT_BASE_URL=${FRONT_BASE_URL}
+      - ACCESS_TOKEN_SECRET=${ACCESS_TOKEN_SECRET}
+      - LOGIN_TOKEN_SECRET=${LOGIN_TOKEN_SECRET}
+      - REFRESH_TOKEN_SECRET=${REFRESH_TOKEN_SECRET}
+      - FILE_TOKEN_SECRET=${FILE_TOKEN_SECRET}
+      
+      # Database Configuration
+      - PG_DATABASE_URL=${PG_DATABASE_URL}
+      - POSTGRES_ADMIN_PASSWORD=${POSTGRES_ADMIN_PASSWORD}
+      
+      # Redis Configuration
+      - REDIS_URL=${REDIS_URL}
+      
+      # Storage Configuration
+      - STORAGE_TYPE=${STORAGE_TYPE:-local}
+      - STORAGE_S3_REGION=${STORAGE_S3_REGION}
+      - STORAGE_S3_NAME=${STORAGE_S3_NAME}
+      - STORAGE_S3_ENDPOINT=${STORAGE_S3_ENDPOINT}
+      
+      # Email Configuration
+      - EMAIL_FROM_ADDRESS=${EMAIL_FROM_ADDRESS}
+      - EMAIL_FROM_NAME=${EMAIL_FROM_NAME}
+      - EMAIL_SYSTEM_ADDRESS=${EMAIL_SYSTEM_ADDRESS}
+      - EMAIL_SMTP_HOST=${EMAIL_SMTP_HOST}
+      - EMAIL_SMTP_PORT=${EMAIL_SMTP_PORT}
+      - EMAIL_SMTP_USER=${EMAIL_SMTP_USER}
+      - EMAIL_SMTP_PASSWORD=${EMAIL_SMTP_PASSWORD}
+      - EMAIL_SMTP_SECURE=${EMAIL_SMTP_SECURE:-true}
+      
+      # Security Configuration
+      - SIGN_IN_PREFILLED=${SIGN_IN_PREFILLED:-false}
+      - IS_SIGN_UP_DISABLED=${IS_SIGN_UP_DISABLED:-false}
+      - API_RATE_LIMITING_TTL=${API_RATE_LIMITING_TTL:-60}
+      - API_RATE_LIMITING_REQUESTS_PER_MINUTE=${API_RATE_LIMITING_REQUESTS_PER_MINUTE:-1000}
+      - DEBUG_MODE=${DEBUG_MODE:-false}
+      - LOG_LEVEL=${LOG_LEVEL:-error}
+      - SENTRY_DSN=${SENTRY_DSN}
+      
+      # Feature Flags
+      - IS_BILLING_ENABLED=${IS_BILLING_ENABLED:-false}
+      - IS_TELEMETRY_ENABLED=${IS_TELEMETRY_ENABLED:-false}
+      - IS_FREE_ACCESS_ENABLED=${IS_FREE_ACCESS_ENABLED:-true}
+      
+    ports:
+      - "3000:3000"
+    
+    volumes:
+      - twenty-server-data:/app/packages/twenty-server/.local-storage
+      - twenty-server-logs:/app/packages/twenty-server/logs
+    
+    depends_on:
+      - redis
+      - postgres
+    
+    networks:
+      - twenty-network
+    
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/healthz"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    
+    security_opt:
+      - no-new-privileges:true
+    
+    
+    ulimits:
+      nproc: 65535
+      nofile:
+        soft: 20000
+        hard: 40000
+    
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 2G
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+    
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  twenty-worker:
+    image: twentyhq/twenty-worker:${TWENTY_VERSION:-latest}
+    container_name: twenty-worker
+    restart: unless-stopped
+    
+    environment:
+      # Core Configuration
+      - APP_SECRET=${APP_SECRET}
+      - SERVER_URL=${SERVER_URL}
+      - FRONT_BASE_URL=${FRONT_BASE_URL}
+      
+      # Database Configuration
+      - PG_DATABASE_URL=${PG_DATABASE_URL}
+      - POSTGRES_ADMIN_PASSWORD=${POSTGRES_ADMIN_PASSWORD}
+      
+      # Redis Configuration
+      - REDIS_URL=${REDIS_URL}
+      
+      # Storage Configuration
+      - STORAGE_TYPE=${STORAGE_TYPE:-local}
+      - STORAGE_S3_REGION=${STORAGE_S3_REGION}
+      - STORAGE_S3_NAME=${STORAGE_S3_NAME}
+      - STORAGE_S3_ENDPOINT=${STORAGE_S3_ENDPOINT}
+      
+      # Email Configuration
+      - EMAIL_FROM_ADDRESS=${EMAIL_FROM_ADDRESS}
+      - EMAIL_FROM_NAME=${EMAIL_FROM_NAME}
+      - EMAIL_SYSTEM_ADDRESS=${EMAIL_SYSTEM_ADDRESS}
+      - EMAIL_SMTP_HOST=${EMAIL_SMTP_HOST}
+      - EMAIL_SMTP_PORT=${EMAIL_SMTP_PORT}
+      - EMAIL_SMTP_USER=${EMAIL_SMTP_USER}
+      - EMAIL_SMTP_PASSWORD=${EMAIL_SMTP_PASSWORD}
+      - EMAIL_SMTP_SECURE=${EMAIL_SMTP_SECURE:-true}
+      
+      # Security Configuration
+      - DEBUG_MODE=${DEBUG_MODE:-false}
+      - LOG_LEVEL=${LOG_LEVEL:-error}
+      - SENTRY_DSN=${SENTRY_DSN}
+      
+      # Feature Flags
+      - IS_BILLING_ENABLED=${IS_BILLING_ENABLED:-false}
+      - IS_TELEMETRY_ENABLED=${IS_TELEMETRY_ENABLED:-false}
+    
+    volumes:
+      - twenty-worker-data:/app/packages/twenty-worker/.local-storage
+      - twenty-worker-logs:/app/packages/twenty-worker/logs
+    
+    depends_on:
+      - redis
+      - postgres
+    
+    networks:
+      - twenty-network
+    
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/healthz"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    
+    security_opt:
+      - no-new-privileges:true
+    
+    
+    ulimits:
+      nproc: 65535
+      nofile:
+        soft: 20000
+        hard: 40000
+    
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 1G
+        reservations:
+          cpus: '0.25'
+          memory: 256M
+    
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  postgres:
+    image: postgres:15-alpine
+    container_name: twenty-postgres
+    restart: unless-stopped
+    
+    environment:
+      - POSTGRES_DB=twenty
+      - POSTGRES_USER=twenty
+      - POSTGRES_PASSWORD=${POSTGRES_ADMIN_PASSWORD}
+      - POSTGRES_INITDB_ARGS=--auth-host=scram-sha-256
+    
+    ports:
+      - "5432:5432"
+    
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./postgres-init:/docker-entrypoint-initdb.d
+    
+    networks:
+      - twenty-network
+    
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U twenty -d twenty"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    
+    security_opt:
+      - no-new-privileges:true
+    
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=100m
+      - /run/postgresql:rw,noexec,nosuid,size=100m
+    
+    command: >
+      postgres
+      -c shared_preload_libraries=pg_stat_statements
+      -c pg_stat_statements.track=all
+      -c max_connections=200
+      -c shared_buffers=256MB
+      -c effective_cache_size=1GB
+      -c maintenance_work_mem=64MB
+      -c checkpoint_completion_target=0.9
+      -c wal_buffers=16MB
+      -c default_statistics_target=100
+      -c random_page_cost=1.1
+      -c effective_io_concurrency=200
+      -c work_mem=4MB
+      -c min_wal_size=1GB
+      -c max_wal_size=4GB
+      -c ssl=on
+      -c ssl_cert_file=/etc/ssl/certs/ssl-cert-snakeoil.pem
+      -c ssl_key_file=/etc/ssl/private/ssl-cert-snakeoil.key
+    
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 1G
+        reservations:
+          cpus: '0.25'
+          memory: 256M
+    
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  redis:
+    image: redis:7-alpine
+    container_name: twenty-redis
+    restart: unless-stopped
+    
+    command: >
+      redis-server
+      --requirepass ${REDIS_PASSWORD}
+      --maxmemory 256mb
+      --maxmemory-policy allkeys-lru
+      --save 900 1
+      --save 300 10
+      --save 60 10000
+      --stop-writes-on-bgsave-error yes
+      --rdbcompression yes
+      --rdbchecksum yes
+      --appendonly yes
+      --appendfsync everysec
+      --no-appendfsync-on-rewrite no
+      --auto-aof-rewrite-percentage 100
+      --auto-aof-rewrite-min-size 64mb
+      --tcp-keepalive 300
+      --timeout 0
+      --databases 16
+      --loglevel notice
+    
+    volumes:
+      - redis-data:/data
+    
+    networks:
+      - twenty-network
+    
+    healthcheck:
+      test: ["CMD", "redis-cli", "--raw", "incr", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    
+    security_opt:
+      - no-new-privileges:true
+    
+    
+    ulimits:
+      nproc: 65535
+      nofile:
+        soft: 20000
+        hard: 40000
+    
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+        reservations:
+          cpus: '0.1'
+          memory: 128M
+    
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+volumes:
+  twenty-server-data:
+    driver: local
+  
+  twenty-worker-data:
+    driver: local
+  
+  twenty-server-logs:
+    driver: local
+  
+  twenty-worker-logs:
+    driver: local
+  
+  postgres-data:
+    driver: local
+  
+  redis-data:
+    driver: local
+
+networks:
+  twenty-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
+          gateway: 172.20.0.1 
